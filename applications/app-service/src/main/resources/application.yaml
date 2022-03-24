@@ -13,4 +13,8 @@ spring:
     include: null
   data:
     mongodb:
-      uri: "mongourl"
+      uri: "url"
+adapter:
+  restconsumer:
+    timeout: 5000
+    url: "http://192.168.1.1:5000/chat/sendmessage"
