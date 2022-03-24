@@ -4,6 +4,6 @@ import reactor.core.publisher.Mono;
 
 public interface WhatsAppRepository {
 
-    Mono<String> sendMessage(String phone, String body);
+    Mono<String> sendMessage(String phone, String message);
 
 }
