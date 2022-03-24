@@ -6,13 +6,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "DNAAnalysis")
+@Document(collection = "UserDocument")
 @NoArgsConstructor
 public class UsersData {
 
     @Id
     private String id;
     private String name;
-    private Integer phone;
+    private String phone;
     private String plaque;
 }

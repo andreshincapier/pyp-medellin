@@ -13,4 +13,4 @@ spring:
     include: null
   data:
     mongodb:
-      uri: "mongodb+srv:"
+      uri: "mongourl"
