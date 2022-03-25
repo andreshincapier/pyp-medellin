@@ -5,15 +5,11 @@ spring:
     name: "pyp-medellin"
   devtools:
     add-properties: false
-  h2:
-    console:
-      enabled: true
-      path: "/h2"
   profiles:
     include: null
   data:
     mongodb:
-      uri: "mongourl"
+      uri: "mongouri"
 adapter:
   restconsumer:
     timeout: 5000
