@@ -2,29 +2,24 @@ package com.andreshincapier.pyp.model.enums;
 
 import java.util.Arrays;
 
-public enum DigitsEnum {
+public enum VehicleEnum {
 
-    SUNDAY(1),
-    MONDAY(2),
-    TUESDAY(3),
-    WEDNESDAY(4),
-    THURSDAY(5),
-    FRIDAY(6),
-    SATURDAY(7);
+    BIKE(""),
+    CAR("");
 
-    private final int id;
+    private final String id;
 
-    DigitsEnum(int id) {
+    VehicleEnum(String id) {
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public static String nameFromId(int id) {
+    public static String nameFromId(String id) {
         return Arrays.stream(values())
-            .filter(dse -> dse.getId() == id)
+            .filter(dse -> dse.getId().equals(id))
             .map(Enum::name)
             .findFirst()
             .orElseThrow(() -> new RuntimeException("OBJECT_STATUS_NOT_VALID"));

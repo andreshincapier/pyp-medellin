@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -21,8 +22,12 @@ public class UserRepositoryAdapter extends
 
     @Override
     public Mono<User> findByPlaque(String plaque) {
-        log.info("HERE IS {}", plaque);
         return repository.findByPlaque(plaque)
             .map(this::toEntity);
+    }
+
+    @Override
+    public Flux<User> findAll() {
+        return doQueryMany(repository.findAll());
     }
 }

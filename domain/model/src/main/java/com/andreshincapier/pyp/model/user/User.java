@@ -9,5 +9,6 @@ public class User {
 
     private String name;
     private String phone;
+    private String type;
     private String plaque;
 }
