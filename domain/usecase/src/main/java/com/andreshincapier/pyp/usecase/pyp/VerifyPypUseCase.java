@@ -7,6 +7,7 @@ import com.andreshincapier.pyp.model.digits.gateways.DigitsRepository;
 import com.andreshincapier.pyp.model.dto.UserDigitsDTO;
 import com.andreshincapier.pyp.model.user.User;
 import com.andreshincapier.pyp.model.user.gateways.UserRepository;
+import com.andreshincapier.pyp.model.whatsapp.MessageData;
 import com.andreshincapier.pyp.model.whatsapp.gateways.WhatsAppRepository;
 import java.util.List;
 import reactor.core.publisher.Flux;
@@ -16,7 +17,7 @@ public record VerifyPypUseCase(UserRepository userRepository,
                                WhatsAppRepository whatsAppRepository,
                                DigitsRepository digitsRepository) {
 
-    public Flux<User> verifyPyp() {
+    public Mono<Void> verifyPyp() {
         return Mono.just(getCurrentDayOfWeek())
             .flatMap(digitsRepository::findByToday)
             .map(digits -> UserDigitsDTO.builder()
@@ -30,9 +31,21 @@ public record VerifyPypUseCase(UserRepository userRepository,
                     .build()
                 )
             )
-            .flatMapMany(ud -> filterByVehicleType(ud.getUserList(), ud.getDigits()));
-//        return whatsAppRepository.sendMessage("573052217853", "");
-//        return userRepository.findByPlaque("WCM42C");
+            .flatMapMany(ud -> filterByVehicleType(ud.getUserList(), ud.getDigits()))
+            .map(this::buildMessage)
+            .flatMap(whatsAppRepository::sendMessage)
+            .then();
+    }
+
+    private MessageData buildMessage(User user) {
+        return MessageData.builder()
+            .phone(user.getPhone())
+            .message("Hola ".concat("*" + user.getName() + "*")
+                .concat(" tu vehículo con placa ")
+                .concat("*" + user.getPlaque() + "*")
+                .concat(" el dia de hoy le corresponde pico y placa")
+            )
+            .build();
     }
 
 
@@ -52,7 +65,6 @@ public record VerifyPypUseCase(UserRepository userRepository,
     private boolean filterCar(User user, List<Integer> cars) {
         return cars
             .stream()
-            .anyMatch(integer -> integer.equals(3));
-//            .anyMatch(integer -> integer.equals((int) user.getPlaque().charAt(3)));
+            .anyMatch(val -> val.equals(Character.getNumericValue(user.getPlaque().charAt(5))));
     }
 }

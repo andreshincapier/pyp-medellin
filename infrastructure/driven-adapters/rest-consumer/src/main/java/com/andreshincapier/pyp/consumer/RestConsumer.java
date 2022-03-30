@@ -1,5 +1,6 @@
 package com.andreshincapier.pyp.consumer;
 
+import com.andreshincapier.pyp.model.whatsapp.MessageData;
 import com.andreshincapier.pyp.model.whatsapp.gateways.WhatsAppRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,14 @@ public class RestConsumer implements WhatsAppRepository {
     private final WebClient client;
 
     @Override
-    public Mono<String> sendMessage(String phone, String message) {
+    public Mono<String> sendMessage(MessageData data) {
 
         MessageRequest request = MessageRequest.builder()
-            .message("Hello from pyp service")
+            .message(data.getMessage())
             .build();
 
         return client.post()
-            .uri(phone)
+            .uri(data.getPhone())
             .body(Mono.just(request), MessageRequest.class)
             .retrieve()
             .bodyToMono(String.class);
