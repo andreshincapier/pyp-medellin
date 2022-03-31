@@ -9,7 +9,7 @@ spring:
     include: null
   data:
     mongodb:
-      uri: "mongodb+srv://andreshincapier:andreshincapier@cluster0.vj80r.mongodb.net/pyp?retryWrites=true&w=majority"
+      uri: "mongouri"
 adapter:
   restconsumer:
     timeout: 5000
