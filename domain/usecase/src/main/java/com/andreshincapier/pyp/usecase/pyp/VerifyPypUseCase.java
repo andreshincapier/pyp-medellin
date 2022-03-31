@@ -40,10 +40,10 @@ public record VerifyPypUseCase(UserRepository userRepository,
     private MessageData buildMessage(User user) {
         return MessageData.builder()
             .phone(user.getPhone())
-            .message("Hola ".concat("*" + user.getName() + "*")
-                .concat(" tu vehículo con placa ")
+            .message("Hola 👋".concat("*" + user.getName() + "*")
+                .concat(" tu vehículo 🚘 con placa ")
                 .concat("*" + user.getPlaque() + "*")
-                .concat(" el dia de hoy le corresponde pico y placa")
+                .concat(" el dia de hoy le corresponde pico y placa ⛔️")
             )
             .build();
     }

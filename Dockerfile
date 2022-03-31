@@ -4,7 +4,7 @@ WORKDIR $HOME_DIR
 COPY ./main.gradle ./build.gradle
 COPY . $HOME_DIR
 RUN chmod +x $HOME_DIR/gradlew && $HOME_DIR/gradlew clean build -x test
-RUN cp applications/microservice/build/libs/app-service.jar $HOME_DIR/pyp.jar
+RUN cp applications/app-service/build/libs/app-service.jar $HOME_DIR/pyp.jar
 FROM adoptopenjdk/openjdk16 AS jar
 RUN addgroup --system spring && adduser --system spring --ingroup spring
 USER spring:spring
