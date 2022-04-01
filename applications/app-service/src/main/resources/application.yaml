@@ -9,7 +9,7 @@ spring:
     include: null
   data:
     mongodb:
-      uri: "mongouri"
+      uri: "mongodb"
 adapter:
   restconsumer:
     timeout: 5000
