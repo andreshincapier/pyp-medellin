@@ -3,7 +3,6 @@ package com.andreshincapier.pyp.api;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.ResponseEntity.status;
 
-import com.andreshincapier.pyp.model.user.User;
 import com.andreshincapier.pyp.usecase.pyp.VerifyPypUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +19,8 @@ public class VerifyPypService {
     private final VerifyPypUseCase verifyPypUseCase;
 
     @PostMapping(path = "/verify")
-    public Mono<ResponseEntity<User>> verifyPypJob() {
+    public Mono<ResponseEntity<String>> verifyPypJob() {
         return verifyPypUseCase.verifyPyp()
-            .map(value -> status(OK).body(value));
+            .map(value -> status(OK).body(""));
     }
 }
